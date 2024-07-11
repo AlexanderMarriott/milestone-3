@@ -29,9 +29,62 @@ if not check_mongo_connection():
     raise Exception("Failed to connect to MongoDB. Please check your settings.")
 
 @app.route('/')
-def home():
-    return render_template('base.html')
+def welcome():
+    return render_template('welcome.html')
 
+@app.route('/sign_up', methods=['POST'])
+def sign_up():
+    username = request.form.get('username')
+    password = request.form.get('password')
+    confirm_password = request.form.get('confirm_password')
+    is_admin = request.form.get('is_admin') == 'on'
+
+    if password != confirm_password:
+        flash('Passwords do not match!')
+        return redirect(url_for('welcome'))
+
+    existing_user = mongo.db.users.find_one({'username': username})
+    if existing_user:
+        flash('Username already exists!')
+        return redirect(url_for('welcome'))
+
+    hashed_password = generate_password_hash(password)
+    mongo.db.users.insert_one({
+        'username': username,
+        'password': hashed_password,
+        'is_admin': is_admin
+    })
+    flash('User created successfully! Please sign in.')
+    return redirect(url_for('welcome'))
+
+@app.route('/sign_in', methods=['POST'])
+def sign_in():
+    username = request.form.get('username')
+    password = request.form.get('password')
+
+    user = mongo.db.users.find_one({'username': username})
+    if user and check_password_hash(user['password'], password):
+        session['username'] = username
+        session['is_admin'] = user.get('is_admin', False)
+        flash('Signed in successfully!')
+        return redirect(url_for('home'))
+
+    flash('Invalid username or password!')
+    return redirect(url_for('welcome'))
+
+@app.route('/home')
+def home():
+    if 'username' in session:
+        is_admin = session.get('is_admin', False)
+        return render_template('profile.html', username=session['username'], is_admin=is_admin)
+    return redirect(url_for('welcome'))
+
+@app.route('/sign_out')
+def sign_out():
+    session.pop('username', None)
+    session.pop('is_admin', None)
+    flash('Signed out successfully!')
+    return redirect(url_for('welcome'))
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
