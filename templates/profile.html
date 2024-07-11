@@ -1,0 +1,16 @@
+{% extends "base.html" %} {% block content %}
+
+<div class="container">
+  <h2>Welcome, {{ username }}!</h2>
+  {% if is_admin %}
+  <h4>Admin Panel</h4>
+  <p>Here you can manage users and settings.</p>
+  <!-- Add more admin-specific content here -->
+  {% else %}
+  <h4>User Profile</h4>
+  <p>Here you can view and edit your profile.</p>
+  <!-- Add more user-specific content here -->
+  {% endif %}
+</div>
+
+{% endblock %}
