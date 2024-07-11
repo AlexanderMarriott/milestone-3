@@ -30,7 +30,7 @@ if not check_mongo_connection():
 
 @app.route('/')
 def home():
-    return "Hello, Flask with MongoDB!"
+    return render_template('base.html')
 
 
 if __name__ == '__main__':
