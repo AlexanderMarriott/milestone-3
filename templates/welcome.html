@@ -1,0 +1,109 @@
+{% extends "base.html" %} {% block title %}Welcome{% endblock %} {% block
+content %}
+<h2 class="center-align">Welcome to Profile Display</h2>
+<div class="row center-align">
+  <a class="waves-effect waves-light btn modal-trigger" href="#sign_in_modal"
+    >Sign In</a
+  >
+  <a class="waves-effect waves-light btn modal-trigger" href="#sign_up_modal"
+    >Sign Up</a
+  >
+</div>
+
+<!-- Sign In Modal -->
+<div id="sign_in_modal" class="modal">
+  <div class="modal-content">
+    <h4>Sign In</h4>
+    <form action="{{ url_for('sign_in') }}" method="POST">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="sign_in_username" name="username" type="text" required />
+          <label for="sign_in_username">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+            id="sign_in_password"
+            name="password"
+            type="password"
+            required
+          />
+          <label for="sign_in_password">Password</label>
+        </div>
+      </div>
+      <div class="row center-align">
+        <button class="btn waves-effect waves-light" type="submit">
+          Sign In
+        </button>
+      </div>
+      <div class="center-align">
+        <p>
+          Don't have an account yet?
+          <a href="#sign_up_modal" class="modal-trigger switch-modal"
+            >Sign Up</a
+          >
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Sign Up Modal -->
+<div id="sign_up_modal" class="modal">
+  <div class="modal-content">
+    <h4>Sign Up</h4>
+    <form action="{{ url_for('sign_up') }}" method="POST">
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="sign_up_username" name="username" type="text" required />
+          <label for="sign_up_username">Username</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+            id="sign_up_password"
+            name="password"
+            type="password"
+            required
+          />
+          <label for="sign_up_password">Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+            id="confirm_password"
+            name="confirm_password"
+            type="password"
+            required
+          />
+          <label for="confirm_password">Confirm Password</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <label>
+            <input type="checkbox" name="is_admin" />
+            <span>Register as Admin</span>
+          </label>
+        </div>
+      </div>
+      <div class="row center-align">
+        <button class="btn waves-effect waves-light" type="submit">
+          Sign Up
+        </button>
+      </div>
+      <div class="center-align">
+        <p>
+          Already have an account?
+          <a href="#sign_in_modal" class="modal-trigger switch-modal"
+            >Sign In</a
+          >
+        </p>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
