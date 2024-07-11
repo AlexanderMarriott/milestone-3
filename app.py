@@ -30,22 +30,25 @@ if not check_mongo_connection():
 
 @app.route('/')
 def welcome():
+    if 'username' in session:
+        return redirect(url_for('home'))
     return render_template('welcome.html')
 
 @app.route('/sign_up', methods=['POST'])
 def sign_up():
+    users_name = request.form.get('users_name')
     username = request.form.get('username')
     password = request.form.get('password')
     confirm_password = request.form.get('confirm_password')
     is_admin = request.form.get('is_admin') == 'on'
 
     if password != confirm_password:
-        flash('Passwords do not match!')
+        flash('Passwords do not match!', 'error')
         return redirect(url_for('welcome'))
 
     existing_user = mongo.db.users.find_one({'username': username})
     if existing_user:
-        flash('Username already exists!')
+        flash('Username already exists!', 'error')
         return redirect(url_for('welcome'))
 
     hashed_password = generate_password_hash(password)
@@ -54,7 +57,7 @@ def sign_up():
         'password': hashed_password,
         'is_admin': is_admin
     })
-    flash('User created successfully! Please sign in.')
+    flash('User created successfully! Please sign in.', 'success')
     return redirect(url_for('welcome'))
 
 @app.route('/sign_in', methods=['POST'])
@@ -66,10 +69,10 @@ def sign_in():
     if user and check_password_hash(user['password'], password):
         session['username'] = username
         session['is_admin'] = user.get('is_admin', False)
-        flash('Signed in successfully!')
+        flash(f'Welcome {username}!', 'success')
         return redirect(url_for('home'))
 
-    flash('Invalid username or password!')
+    flash('Invalid username or password!', 'error')
     return redirect(url_for('welcome'))
 
 @app.route('/home')
@@ -83,7 +86,7 @@ def home():
 def sign_out():
     session.pop('username', None)
     session.pop('is_admin', None)
-    flash('Signed out successfully!')
+    flash('Signed out successfully!', 'success')
     return redirect(url_for('welcome'))
 
 if __name__ == '__main__':
