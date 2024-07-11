@@ -56,8 +56,25 @@ content %}
     <form action="{{ url_for('sign_up') }}" method="POST">
       <div class="row">
         <div class="input-field col s12">
-          <input id="sign_up_username" name="username" type="text" required />
-          <label for="sign_up_username">Username</label>
+          <input id="first_name" name="first_name" type="text" required />
+          <label for="first_name">First Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input id="last_name" name="last_name" type="text" required />
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s12">
+          <input
+            id="sign_up_email"
+            name="sign_up_email"
+            type="email"
+            required
+          />
+          <label for="sign_up_email">Email</label>
         </div>
       </div>
       <div class="row">
@@ -80,14 +97,6 @@ content %}
             required
           />
           <label for="confirm_password">Confirm Password</label>
-        </div>
-      </div>
-      <div class="row">
-        <div class="input-field col s12">
-          <label>
-            <input type="checkbox" name="is_admin" />
-            <span>Register as Admin</span>
-          </label>
         </div>
       </div>
       <div class="row center-align">
