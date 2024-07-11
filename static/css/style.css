@@ -4,3 +4,25 @@
     width: 400px;
     color: green;
 }
+
+div.nav-wrapper {
+    padding-left: 20px;
+}
+
+body {
+    background-color: #d5e9e8;
+}
+
+.modal {
+    max-height: 90vh; /* Ensure the modal itself doesn't exceed the viewport height */
+}
+
+.modal-content {
+    height: 100%; /* Ensure the modal content takes full height */
+    overflow: hidden; /* Prevent overflow in modal content */
+}
+
+.modal-content form {
+    max-height: 80vh; /* Adjust this value to prevent form overflow */
+    overflow: auto; /* Allow scrolling within the form if necessary */
+}
