@@ -72,7 +72,7 @@ def sign_in():
     if user and check_password_hash(user['password'], password):
         session['email'] = email
         session['is_admin'] = user.get('is_admin', False)
-        flash(f'Welcome back, {user["first_name"]}!', 'success')
+        flash(f'Welcome, {user["first_name"]}!', 'success')
         return redirect(url_for('home'))
 
     flash('Invalid email or password!', 'error')
