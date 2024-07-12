@@ -1,8 +1,6 @@
-.test {
-    background-color: red;
-    height: 400px;
-    width: 400px;
-    color: green;
+body {
+    padding: -20px;
+    margin: 0px;
 }
 
 div.nav-wrapper {
@@ -14,16 +12,102 @@ body {
 }
 
 .modal {
-    max-height: 90vh; /* Ensure the modal itself doesn't exceed the viewport height */
+    max-height: 90vh;
+    /* Ensure the modal itself doesn't exceed the viewport height */
 }
 
 .modal-content {
-    height: 100%; /* Ensure the modal content takes full height */
-    overflow: hidden; /* Prevent overflow in modal content */
+    height: 100%;
+    /* Ensure the modal content takes full height */
+    overflow: hidden;
+    /* Prevent overflow in modal content */
 }
 
 .modal-content form {
-    max-height: 80vh; /* Adjust this value to prevent form overflow */
-    overflow: auto; /* Allow scrolling within the form if necessary */
+    max-height: 80vh;
+    /* Adjust this value to prevent form overflow */
+    overflow: auto;
+    /* Allow scrolling within the form if necessary */
 }
 
+.header_top_background {
+    background-color: aquamarine;
+    height: 30px,
+}
+
+
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f0f0f0;
+    /* Adjust background color if needed */
+}
+
+.profile-header {
+    background: #fbfdff;
+    /* Match the background color */
+    padding: 30px 40px 30px 40px;
+    margin: 20px;
+    text-align: center;
+    /* Center the text and elements */
+    border-radius: 20px;
+    border: 5px solid white;
+}
+
+.section{
+    border-radius: 20px;
+    border: 5px solid white;
+}
+
+.container .s12 {
+    margin-top: 10px;
+}
+
+.profile-picture img {
+   border: 2px solid white;
+}
+
+.profile-info {
+    padding-top: 20px;
+}
+
+.profile-info h4 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+.profile-info p {
+    margin: 5px 0 15px;
+    font-size: 1.2rem;
+}
+
+.social-icons {
+    margin-top: 15px;
+}
+
+.social-icons a {
+    color: white;
+    margin-right: 10px;
+    font-size: 1.5rem;
+}
+
+.social-icons a:last-child {
+    margin-right: 0;
+}
+
+.header_text {
+    text-align: left;
+}
+
+.personal-summary {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.text-container {
+    padding-left: 5px;
+}
+
+.container {
+    width:95%
+}
