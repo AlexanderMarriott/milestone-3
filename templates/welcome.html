@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %}Welcome{% endblock %} {% block
 content %}
-<h2 class="center-align">Welcome to Profile Display</h2>
+<h2 class="center-align">Welcome to SkillSync</h2>
 <div class="row center-align">
   <a class="waves-effect waves-light btn modal-trigger" href="#sign_in_modal"
     >Sign In</a
@@ -17,8 +17,8 @@ content %}
     <form action="{{ url_for('sign_in') }}" method="POST">
       <div class="row">
         <div class="input-field col s12">
-          <input id="sign_in_username" name="username" type="text" required />
-          <label for="sign_in_username">Username</label>
+          <input id="sign_in_email" name="email" type="email" required />
+          <label for="sign_in_email">Email</label>
         </div>
       </div>
       <div class="row">
@@ -68,12 +68,7 @@ content %}
       </div>
       <div class="row">
         <div class="input-field col s12">
-          <input
-            id="sign_up_email"
-            name="sign_up_email"
-            type="email"
-            required
-          />
+          <input id="sign_up_email" name="email" type="email" required />
           <label for="sign_up_email">Email</label>
         </div>
       </div>
