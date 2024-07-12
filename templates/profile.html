@@ -1,16 +1,75 @@
 {% extends "base.html" %} {% block content %}
-
-<div class="container">
-  <h2>Welcome, {{ username }}!</h2>
-  {% if is_admin %}
-  <h4>Admin Panel</h4>
-  <p>Here you can manage users and settings.</p>
-  <!-- Add more admin-specific content here -->
-  {% else %}
-  <h4>User Profile</h4>
-  <p>Here you can view and edit your profile.</p>
-  <!-- Add more user-specific content here -->
-  {% endif %}
-</div>
-
+<main>
+  <div class="profile-header z-depth-2 teal lighten-4">
+    <div class="row s12"></div>
+    <div class="container">
+      <div class="row valign-wrapper">
+        <div class="col s3 profile-picture">
+          <img
+            src="https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1720742400&semt=sph"
+            alt=""
+            class="circle responsive-img"
+          />
+          <div class="social-icons">
+            <a href="#"><i class="fab fa-linkedin hoverable"></i></a>
+            <a href="#"><i class="fab fa-github hoverable"></i></a>
+          </div>
+        </div>
+        <div class="col s9 right header_text">
+          <div class="profile-info left-align">
+            <a href=""><i class="fas fa-edit right"></i></a>
+            <h4>Alexander Marriott</h4>
+            <p>Data Engineer | Electrical Engineer | Family Man</p>
+          </div>
+          <div class="personal-summary">
+            <div class="text-container">
+              <h6>Overview:</h6>
+              <p>enter loads of text here it will look really great and cool</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row container">
+    <div
+      class="employment_history z-depth-2 teal lighten-4 container col s12 m6 section padding-right"
+    >
+      <h6>
+        Experience<a href=""><i class="fas fa-edit right"></i></a>
+      </h6>
+      <p>Work and education history</p>
+    </div>
+    <div
+      class="hobbies z-depth-2 teal lighten-4 container col s12 m5 offset-m1 section"
+    >
+      <h6>
+        Hobbies And Interests <a href=""><i class="fas fa-edit right"></i></a>
+      </h6>
+      <p>Work and education history</p>
+    </div>
+    <div
+      class="portfolio z-depth-2 teal lighten-4 container col s12 m6 section padding-right"
+    >
+      <h6>
+        Portfolio <a href=""><i class="fas fa-edit right"></i></a>
+      </h6>
+      <p>Links to completed projects</p>
+    </div>
+    <div
+      class="hobbies z-depth-2 teal lighten-4 container col s12 m5 offset-m1 section"
+    >
+      <h6>
+        Hobbies And Interests<a href=""><i class="fas fa-edit right"></i></a>
+      </h6>
+      <p>Work and education history</p>
+    </div>
+    <div class="hobbies z-depth-2 teal lighten-4 container col s12 m6 section">
+      <h6>
+        Key Tools<a href=""><i class="fas fa-edit right"></i></a>
+      </h6>
+      <p>Programming tools/languages</p>
+    </div>
+  </div>
+</main>
 {% endblock %}
