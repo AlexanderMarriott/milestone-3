@@ -30,66 +30,67 @@ if not check_mongo_connection():
 
 @app.route('/')
 def welcome():
-    if 'username' in session:
+    if 'email' in session:
         return redirect(url_for('home'))
     return render_template('welcome.html')
 
 @app.route('/sign_up', methods=['POST'])
 def sign_up():
-    users_name = request.form.get('users_name')
-    username = request.form.get('username')
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    email = request.form.get('email')
     password = request.form.get('password')
     confirm_password = request.form.get('confirm_password')
-    is_admin = request.form.get('is_admin') == 'on'
 
     if password != confirm_password:
         flash('Passwords do not match!', 'error')
         return redirect(url_for('welcome'))
 
-    existing_user = mongo.db.users.find_one({'username': username})
-    if existing_user:
-        flash('Username already exists!', 'error')
+    existing_email = mongo.db.users.find_one({'email': email})
+    if existing_email:
+        flash('Email already registered!', 'error')
         return redirect(url_for('welcome'))
 
     hashed_password = generate_password_hash(password)
     mongo.db.users.insert_one({
-        'username': username,
+        'first_name': first_name,
+        'last_name': last_name,
+        'email': email,
         'password': hashed_password,
-        'is_admin': is_admin
+        'is_admin': False,  # Default is_admin to False      
     })
+
     flash('User created successfully! Please sign in.', 'success')
     return redirect(url_for('welcome'))
 
 @app.route('/sign_in', methods=['POST'])
 def sign_in():
-    username = request.form.get('username')
+    email = request.form.get('email')
     password = request.form.get('password')
 
-    user = mongo.db.users.find_one({'username': username})
+    user = mongo.db.users.find_one({'email': email})
     if user and check_password_hash(user['password'], password):
-        session['username'] = username
+        session['email'] = email
         session['is_admin'] = user.get('is_admin', False)
-        flash(f'Welcome {username}!', 'success')
+        flash(f'Welcome back, {user["first_name"]}!', 'success')
         return redirect(url_for('home'))
 
-    flash('Invalid username or password!', 'error')
+    flash('Invalid email or password!', 'error')
     return redirect(url_for('welcome'))
 
 @app.route('/home')
 def home():
-    if 'username' in session:
-        is_admin = session.get('is_admin', False)
-        return render_template('profile.html', username=session['username'], is_admin=is_admin)
+    if 'email' in session:
+        user = mongo.db.users.find_one({'email': session['email']})
+        return render_template('profile.html', user=user)
     return redirect(url_for('welcome'))
 
 @app.route('/sign_out')
 def sign_out():
-    session.pop('username', None)
+    session.pop('email', None)
     session.pop('is_admin', None)
     flash('Signed out successfully!', 'success')
     return redirect(url_for('welcome'))
 
 if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')),
-            debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)
