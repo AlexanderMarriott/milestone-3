@@ -94,6 +94,8 @@ def profile(user_id):
         flash("User not found", "error")
         return redirect(url_for("welcome"))
 
+    is_owner = user_id == session.get("user_id")
+
     user_profile = mongo.db.profile_info.find_one({"created_by": user_id}) or {}
     certifications = list(mongo.db.certifications.find({"created_by": user_id}))
     experience = list(mongo.db.experience.find({"created_by": user_id}))
@@ -109,6 +111,7 @@ def profile(user_id):
         "program_lang": program_lang,
         "projects": projects,
         "qualifications": qualifications,
+        "is_owner": is_owner,
     }
 
     return render_template("profile.html", profile_data=profile_data)
@@ -138,32 +141,6 @@ def update_profile():
     else:
         mongo.db.profile_info.insert_one(profile_data)
     flash("Profile updated successfully!", "success")
-    return redirect(url_for("profile", user_id=user_id))
-
-
-@app.route("/update_experience", methods=["POST"])
-def update_profile():
-    user_id = session.get("user_id")
-    if not user_id:
-        return redirect(url_for("welcome"))
-
-    experience_data = {
-        "company_img": request.form.get("company_img"),
-        "company_name": request.form.get("company_name"),
-        "position": request.form.get("position"),
-        "start_date": request.form.get("start_date"),
-        "end_date": request.form.get("end_date"),
-        "job_description": request.form.get("linkedin_url"),
-        "created_by": user_id,
-    }
-    existing_profile = mongo.db.experience.find_one({"created_by": user_id})
-    if existing_profile:
-        mongo.db.profile_info.update_one(
-            {"created_by": user_id}, {"$set": experience_data}
-        )
-    else:
-        mongo.db.profile_info.insert_one(experience_data)
-    flash("Experience updated successfully!", "success")
     return redirect(url_for("profile", user_id=user_id))
 
 
