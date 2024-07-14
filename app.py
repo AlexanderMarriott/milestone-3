@@ -108,7 +108,11 @@ def update_profile_route():
     profile_data = {
         "first_name": request.form.get("first_name"),
         "last_name": request.form.get("last_name"),
-        # Add other fields as necessary
+        "profile_image": request.form.get("profile_image"),
+        "tagline": request.form.get("tagline"),
+        "github_url": request.form.get("github_url"),
+        "linkedin_url": request.form.get("linkedin_url"),
+        "profile_headline": request.form.get("profile_headline"),
         "created_by": user_id,
     }
     existing_profile = mongo.db.profile_info.find_one({"created_by": user_id})
