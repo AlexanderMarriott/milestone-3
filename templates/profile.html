@@ -7,9 +7,7 @@
         <div class="col s3 profile-picture">
           <img
             src="https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1720742400&semt=sph"
-            alt=""
-            class="circle responsive-img"
-          />
+            alt="" class="circle responsive-img" />
           <div class="social-icons">
             <a href="#"><i class="fab fa-linkedin hoverable"></i></a>
             <a href="#"><i class="fab fa-github hoverable"></i></a>
@@ -17,7 +15,8 @@
         </div>
         <div class="col s9 right header_text">
           <div class="profile-info left-align">
-            <a href=""><i class="fas fa-edit right"></i></a>
+            <a href="#profile_info_modal" class="modal-trigger tooltipped right" data-position="top"
+              data-tooltip="Edit info"><i class="fas fa-edit modal-edit-icon right"></i></a>
             <h4>Alexander Marriott</h4>
             <p>Data Engineer | Electrical Engineer | Family Man</p>
           </div>
@@ -32,34 +31,26 @@
     </div>
   </div>
   <div class="row container">
-    <div
-      class="employment_history z-depth-2 teal lighten-4 container col s12 m6 section padding-right"
-    >
+    <div class="employment_history z-depth-2 teal lighten-4 container col s12 m6 section padding-right">
       <h6>
-        Experience<a href=""><i class="fas fa-edit right"></i></a>
+        Experience<a href="#profile_info_modal" class="modal-trigger"><i class="fas fa-edit right"></i></a>
       </h6>
       <p>Work and education history</p>
       <div class="section-content"></div>
     </div>
-    <div
-      class="hobbies z-depth-2 teal lighten-4 container col s12 m5 offset-m1 section"
-    >
+    <div class="hobbies z-depth-2 teal lighten-4 container col s12 m5 offset-m1 section">
       <h6>
         Hobbies And Interests <a href=""><i class="fas fa-edit right"></i></a>
       </h6>
       <p>Work and education history</p>
     </div>
-    <div
-      class="portfolio z-depth-2 teal lighten-4 container col s12 m6 section padding-right"
-    >
+    <div class="portfolio z-depth-2 teal lighten-4 container col s12 m6 section padding-right">
       <h6>
         Portfolio <a href=""><i class="fas fa-edit right"></i></a>
       </h6>
       <p>Links to completed projects</p>
     </div>
-    <div
-      class="hobbies z-depth-2 teal lighten-4 container col s12 m5 offset-m1 section"
-    >
+    <div class="hobbies z-depth-2 teal lighten-4 container col s12 m5 offset-m1 section">
       <h6>
         Hobbies And Interests<a href=""><i class="fas fa-edit right"></i></a>
       </h6>
@@ -73,4 +64,63 @@
     </div>
   </div>
 </main>
+
+
+<!-- MODALS -->
+
+<!-- Edit Profile Modal -->
+<div id="profile_info_modal" class="modal">
+  <div class="modal-content center-align">
+    <h4>Edit Profile</h4>
+    <form action="{{ url_for('home') }}" methods="POST">
+      <div class="row center align">
+        <div class="input-field col s5 offset-m1">
+          <input id="first_name" name="first_name" type="text" required />
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field col s5 ">
+          <input id="last_name" name="last_name" type="text" required />
+          <label for="last_name">Last Name</label>
+        </div>
+      </div>
+      <div class="row center-align">
+        <div class="input-field col s5 offset-m1">
+          <input id="profile_image" name="profile_image" type="text" required />
+          <label for="profile_image">Photo URL</label>
+        </div>
+
+        <div class="input-field col s5">
+          <input id="tagline" name="tagline" type="text" required />
+          <label for="tagline">tagline</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s5 offset-m1">
+          <input id="github_url" name="github_url" type="text" required />
+          <label for="github_url">github url</label>
+        </div>
+        <div class="input-field col s5 ">
+          <input id="linkedin_url" name="linkedin_url" type="text" required />
+          <label for="linkedin_url">linkedin url</label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="input-field col s10 offset-m1">
+          <textarea id="profile_headline" name="profile_headline" class="materialize-textarea" required
+            maxlength="250"></textarea>
+          <label for="profile_headline">Profile Headline</label>
+          <span id="profile_headline-counter">0/250</span>
+        </div>
+      </div>
+  </div>
+  <div class="row center-align">
+    <button class="btn waves-effect waves-light" type="submit">
+      Edit Profile
+    </button>
+  </div>
+  </form>
+</div>
+</div>
+
+<!-- Edit Profile Modal -->
 {% endblock %}
