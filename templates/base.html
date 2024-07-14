@@ -1,81 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
-      integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-      type="text/css"
-    />
-    <link
-      rel="stylesheet"
-      href="{{ url_for('static', filename='css/style.css') }}"
-      type="text/css"
-    />
-    {% block styles %} {% endblock %}
-    <title>SkillSync</title>
-  </head>
 
-  <body>
-    <nav>
-      <div class="nav-wrapper teal darken-3">
-        <a href="{{ url_for('home') }}" class="brand-logo">SkillSync</a>
-        <a href="#" data-target="mobile-demo" class="sidenav-trigger"
-          ><i class="fas fa-bars"></i
-        ></a>
-        <ul class="right hide-on-med-and-down">
-          {% if 'email' in session %}
-          <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
-          {% else %}
-          <li><a href="#sign_in_modal" class="modal-trigger">Sign In</a></li>
-          <li><a href="#sign_up_modal" class="modal-trigger">Sign Up</a></li>
-          {% endif %}
-        </ul>
-      </div>
-    </nav>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    type="text/css" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css" />
+  {% block styles %} {% endblock %}
+  <title>SkillSync</title>
+</head>
 
-    <ul class="sidenav" id="mobile-demo">
-      <li><a href="sass.html">Sass</a></li>
-      <li><a href="badges.html">Components</a></li>
-      <li><a href="collapsible.html">Javascript</a></li>
-      <li><a href="mobile.html">Mobile</a></li>
-      {% if 'email' in session %}
-      <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
-      {% else %}
-      <li><a href="#sign_in_modal" class="modal-trigger">Sign In</a></li>
-      <li><a href="#sign_up_modal" class="modal-trigger">Sign Up</a></li>
-      {% endif %}
-    </ul>
+<body>
+  <nav>
+    <div class="nav-wrapper teal darken-3">
+      <a href="{{ url_for('home') }}" class="brand-logo">SkillSync</a>
+      <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="fas fa-bars"></i></a>
+      <ul class="right hide-on-med-and-down">
+        {% if 'user_id' in session %}
+        <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
+        {% else %}
+        <li><a href="#sign_in_modal" class="modal-trigger">Sign In</a></li>
+        <li><a href="#sign_up_modal" class="modal-trigger">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </div>
+  </nav>
 
-    <section>
-      <!-- flash messages-->
-      {% with messages = get_flashed_messages() %} {% if messages %} {% for
-      message in messages %}
-      <div class="row flashes">
-        <h4 class="teal lighten-3 center-align">{{ message }}</h4>
-      </div>
-      {% endfor %} {% endif %} {% endwith %}
-    </section>
+  <ul class="sidenav" id="mobile-demo">
+    <li><a href="sass.html">Sass</a></li>
+    <li><a href="badges.html">Components</a></li>
+    <li><a href="collapsible.html">Javascript</a></li>
+    <li><a href="mobile.html">Mobile</a></li>
+    {% if 'user_id' in session %}
+    <li><a href="{{ url_for('sign_out') }}">Sign Out</a></li>
+    {% else %}
+    <li><a href="#sign_in_modal" class="modal-trigger">Sign In</a></li>
+    <li><a href="#sign_up_modal" class="modal-trigger">Sign Up</a></li>
+    {% endif %}
+  </ul>
 
-    <main class="container">{% block content %} {% endblock %}</main>
+  <section>
+    <!-- flash messages-->
+    {% with messages = get_flashed_messages() %} {% if messages %} {% for
+    message in messages %}
+    <div class="row flashes">
+      <h4 class="teal lighten-3 center-align">{{ message }}</h4>
+    </div>
+    {% endfor %} {% endif %} {% endwith %}
+  </section>
 
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 
-    {% block scripts %} {% endblock %}
-  </body>
+  <main class="container">{% block content %} {% endblock %}</main>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+  {% block scripts %} {% endblock %}
+</body>
+
 </html>
