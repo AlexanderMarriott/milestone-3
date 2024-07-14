@@ -15,7 +15,6 @@ app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
 app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
-
 mongo = PyMongo(app)
 
 
@@ -36,7 +35,7 @@ if not check_mongo_connection():
 @app.route("/")
 def welcome():
     if "user_id" in session:
-        return redirect(url_for("home"))
+        return redirect(url_for("profile", user_id=session["user_id"]))
     return render_template("welcome.html")
 
 
@@ -82,25 +81,41 @@ def sign_in():
         session["user_id"] = str(user["_id"])  # Store ObjectId as a string in session
         session["is_admin"] = user.get("is_admin", False)
         flash(f'Welcome, {user["first_name"]}!', "success")
-        return redirect(url_for("home"))
+        return redirect(url_for("profile", user_id=session["user_id"]))
 
     flash("Invalid email or password!", "error")
     return redirect(url_for("welcome"))
 
 
-@app.route("/home")
-def home():
-    if "user_id" in session:
-        user_id = session["user_id"]
-        user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
-        user_profile = mongo.db.profile_info.find_one({"created_by": user_id})
-        # Pass both user and profile data to the template
-        return render_template("profile.html", user=user, profile=user_profile)
-    return redirect(url_for("welcome"))
+@app.route("/profile/<user_id>")
+def profile(user_id):
+    user = mongo.db.users.find_one({"_id": ObjectId(user_id)})
+    if not user:
+        flash("User not found", "error")
+        return redirect(url_for("welcome"))
+
+    user_profile = mongo.db.profile_info.find_one({"created_by": user_id}) or {}
+    certifications = list(mongo.db.certifications.find({"created_by": user_id}))
+    experience = list(mongo.db.experience.find({"created_by": user_id}))
+    program_lang = list(mongo.db.program_lang.find({"created_by": user_id}))
+    projects = list(mongo.db.projects.find({"created_by": user_id}))
+    qualifications = list(mongo.db.qualifications.find({"created_by": user_id}))
+
+    profile_data = {
+        "user": user,
+        "profile_info": user_profile,
+        "certifications": certifications,
+        "experience": experience,
+        "program_lang": program_lang,
+        "projects": projects,
+        "qualifications": qualifications,
+    }
+
+    return render_template("profile.html", profile_data=profile_data)
 
 
 @app.route("/update_profile", methods=["POST"])
-def update_profile_route():
+def update_profile():
     user_id = session.get("user_id")
     if not user_id:
         return redirect(url_for("welcome"))
@@ -123,7 +138,7 @@ def update_profile_route():
     else:
         mongo.db.profile_info.insert_one(profile_data)
     flash("Profile updated successfully!", "success")
-    return redirect(url_for("home"))
+    return redirect(url_for("profile", user_id=user_id))
 
 
 @app.route("/sign_out")
