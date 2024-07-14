@@ -100,8 +100,9 @@ body {
 }
 
 .personal-summary {
-    background-color: rgba(0, 0, 0, 0.2);
+    background-color: rgba(236, 242, 223, 0.446);
     border-radius: 10px;
+    max-width: 30vw;
 }
 
 .text-container {
@@ -113,13 +114,37 @@ body {
 }
 
 .section-content {
-    height: fit-content;
+    max-height: 200px;
     background-color: #fffdfd;
     border-bottom-left-radius:15px ;
     border-bottom-right-radius: 15px;
+    margin-bottom: 10px;
+    overflow-y: hidden;
+    overflow-y: scroll;
 }
 
 .modal-edit-icon {
     color: #f0f0f0;
     font-size: 1.25rem;
 }
+
+table {
+    margin-bottom: 10px;
+}
+
+.employment_history {
+    max-height: 350px;
+}  
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  
+  .highlighted {
+    color: red; 
+  }
+  
+  .selected {
+    border: 2px solid blue; 
+  }

@@ -13,8 +13,12 @@
         </div>
         <div class="col s9 right header_text">
           <div class="profile-info left-align">
+            {% if profile_data.is_owner %}
             <a href="#profile_info_modal" class="modal-trigger tooltipped right" data-position="top"
-              data-tooltip="Edit info"><i class="fas fa-edit modal-edit-icon right"></i></a>
+              data-tooltip="Edit info">
+              <i class="fas fa-edit modal-edit-icon right"></i>
+            </a>
+            {% endif %}
             <h4>{{ profile_data.user.first_name.title() }} {{ profile_data.user.last_name.title() }}</h4>
             <p>{{ profile_data.profile_info.tagline }}</p>
           </div>
@@ -31,22 +35,81 @@
   <div class="row container">
     <div class="employment_history z-depth-2 teal lighten-4 container col s12 m6 section padding-right">
       <h6>
-        Experience<a href="#profile_info_modal" class="modal-trigger"><i class="fas fa-edit right"></i></a>
+        Experience<a href="" class="modal-trigger"><i class="fas fa-edit right"></i></a> <a href=""
+          class="modal-trigger"><i class="fas fa-plus right"></i></a>
       </h6>
       <p>Work and education history</p>
-      <div class="section-content"></div>
+      <div class="section-content">
+        <table>
+          <thead>
+            <tr>
+              <th>Organisation</th>
+              <th>Position</th>
+              <th>Dates</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td>Alvin</td>
+              <td>Eclair</td>
+              <td>$0.87</td>
+            </tr>
+            <tr>
+              <td>Alan</td>
+              <td>Jellybean</td>
+              <td>$3.76</td>
+            </tr>
+            <tr>
+              <td>Jonathan</td>
+              <td>Lollipop</td>
+              <td>$7.00</td>
+            </tr>
+            <tr>
+              <td>Jonathan</td>
+              <td>Lollipop</td>
+              <td>$7.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-    <div class="hobbies z-depth-2 teal lighten-4 container col s12 m5 offset-m1 section">
+    <div class="portfolio z-depth-2 teal lighten-4 container col s12 m5 offset-m1 section">
+      <h6>
+        Portfolio
+        <!-- Edit Icon, initially disabled -->
+        <a href="" id="editIcon" class="disabled"><i class="fas fa-edit right"></i></a>
+        <!-- Plus Icon, changes to bin when an item is selected -->
+        <a href="" id="actionIcon" class="modal-trigger"><i class="fas fa-plus right"></i></a>
+      </h6>
+      <!-- Example selectable item -->
+      <div class="row selectable-item" data-selected="false">
+        <div class="col s12 m12">
+          <div class="card horizontal">
+            <div class="card-image">
+              <img src="https://lorempixel.com/100/190/nature/6">
+            </div>
+            <div class="card-stacked">
+              <div class="card-content">
+                <p>I am a very simple card. I am good at containing small bits of information.</p>
+              </div>
+              <div class="card-action">
+                <a href="#">This is a link</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Add more selectable items as needed -->
+    </div>
+  </div>
+  <div class="row container">
+
+    <div class="hobbies z-depth-2 teal lighten-4 container col s12 m6 section padding-right">
       <h6>
         Hobbies And Interests <a href=""><i class="fas fa-edit right"></i></a>
       </h6>
       <p>Work and education history</p>
-    </div>
-    <div class="portfolio z-depth-2 teal lighten-4 container col s12 m6 section padding-right">
-      <h6>
-        Portfolio <a href=""><i class="fas fa-edit right"></i></a>
-      </h6>
-      <p>Links to completed projects</p>
     </div>
     <div class="hobbies z-depth-2 teal lighten-4 container col s12 m5 offset-m1 section">
       <h6>
@@ -54,6 +117,9 @@
       </h6>
       <p>Work and education history</p>
     </div>
+  </div>
+  </div>
+  <div class="row container">
     <div class="hobbies z-depth-2 teal lighten-4 container col s12 m6 section">
       <h6>
         Key Tools<a href=""><i class="fas fa-edit right"></i></a>
@@ -128,5 +194,8 @@
   </form>
 </div>
 </div>
+
+<!-- add experience modal-->
+
 
 {% endblock %}
