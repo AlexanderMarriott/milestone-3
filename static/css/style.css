@@ -11,36 +11,36 @@ body {
     background-color: #d5e9e8;
 }
 
-.modal {
-    max-height: 90vh;
-    /* Ensure the modal itself doesn't exceed the viewport height */
-}
-
-.modal-content {
-    height: 100%;
-    /* Ensure the modal content takes full height */
-    overflow: hidden;
-    /* Prevent overflow in modal content */
-}
-
-.modal-content form {
-    max-height: 80vh;
-    /* Adjust this value to prevent form overflow */
-    overflow: auto;
-    /* Allow scrolling within the form if necessary */
-}
 
 .header_top_background {
     background-color: aquamarine;
     height: 30px,
 }
 
+.modal-content {
+    font-size: 16px; /* General font size */
+}
 
+/* Override font size for headings within the modal */
+.modal-content h1,
+.modal-content h2,
+.modal-content h3,
+.modal-content h4,
+.modal-content h5,
+.modal-content h6 {
+    font-size: 20px; /* Larger font size for headings */
+}
 
-body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f0f0f0;
-    /* Adjust background color if needed */
+/* Override font size for paragraphs within the modal */
+.modal-content p {
+    font-size: 14px; /* Smaller font size for paragraphs */
+}
+
+.modal {
+    border-radius: 15px;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+    border: 5px solid rgb(116, 230, 177);
 }
 
 .profile-header {
@@ -117,4 +117,9 @@ body {
     background-color: #fffdfd;
     border-bottom-left-radius:15px ;
     border-bottom-right-radius: 15px;
+}
+
+.modal-edit-icon {
+    color: #f0f0f0;
+    font-size: 1.25rem;
 }
