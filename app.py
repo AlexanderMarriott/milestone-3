@@ -141,6 +141,32 @@ def update_profile():
     return redirect(url_for("profile", user_id=user_id))
 
 
+@app.route("/update_experience", methods=["POST"])
+def update_profile():
+    user_id = session.get("user_id")
+    if not user_id:
+        return redirect(url_for("welcome"))
+
+    experience_data = {
+        "company_img": request.form.get("company_img"),
+        "company_name": request.form.get("company_name"),
+        "position": request.form.get("position"),
+        "start_date": request.form.get("start_date"),
+        "end_date": request.form.get("end_date"),
+        "job_description": request.form.get("linkedin_url"),
+        "created_by": user_id,
+    }
+    existing_profile = mongo.db.experience.find_one({"created_by": user_id})
+    if existing_profile:
+        mongo.db.profile_info.update_one(
+            {"created_by": user_id}, {"$set": experience_data}
+        )
+    else:
+        mongo.db.profile_info.insert_one(experience_data)
+    flash("Experience updated successfully!", "success")
+    return redirect(url_for("profile", user_id=user_id))
+
+
 @app.route("/sign_out")
 def sign_out():
     session.pop("user_id", None)  # Remove user_id from session
