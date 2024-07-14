@@ -5,25 +5,23 @@
     <div class="container">
       <div class="row valign-wrapper">
         <div class="col s3 profile-picture">
-          <img
-            src="https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?size=626&ext=jpg&ga=GA1.1.2008272138.1720742400&semt=sph"
-            alt="" class="circle responsive-img" />
+          <img src="{{ profile_data.profile_info.profile_image }}" alt="" class="circle responsive-img" />
           <div class="social-icons">
-            <a href="#"><i class="fab fa-linkedin hoverable"></i></a>
-            <a href="#"><i class="fab fa-github hoverable"></i></a>
+            <a href="{{ profile_data.profile_info.linkedin_url }}"><i class="fab fa-linkedin hoverable"></i></a>
+            <a href="{{ profile_data.profile_info.github_url }}"><i class="fab fa-github hoverable"></i></a>
           </div>
         </div>
         <div class="col s9 right header_text">
           <div class="profile-info left-align">
             <a href="#profile_info_modal" class="modal-trigger tooltipped right" data-position="top"
               data-tooltip="Edit info"><i class="fas fa-edit modal-edit-icon right"></i></a>
-            <h4>Alexander Marriott</h4>
-            <p>Data Engineer | Electrical Engineer | Family Man</p>
+            <h4>{{ profile_data.user.first_name.title() }} {{ profile_data.user.last_name.title() }}</h4>
+            <p>{{ profile_data.profile_info.tagline }}</p>
           </div>
           <div class="personal-summary">
             <div class="text-container">
               <h6>Overview:</h6>
-              <p>enter loads of text here it will look really great and cool</p>
+              <p>{{ profile_data.profile_info.profile_headline }}</p>
             </div>
           </div>
         </div>
@@ -75,39 +73,45 @@
     <form action="{{ url_for('update_profile') }}" method="POST">
       <div class="row center align">
         <div class="input-field col s5 offset-m1">
-          <input id="first_name" name="first_name" type="text" required />
-          <label for="first_name">First Name</label>
+          <input id="first_name" name="first_name" type="text" value="{{ profile_data.profile_info.first_name or '' }}"
+            required />
+          <label for=" first_name">First Name</label>
         </div>
         <div class="input-field col s5 ">
-          <input id="last_name" name="last_name" type="text" required />
+          <input id="last_name" name="last_name" type="text" value="{{ profile_data.profile_info.last_name or '' }}"
+            required />
           <label for="last_name">Last Name</label>
         </div>
       </div>
       <div class="row center-align">
         <div class="input-field col s5 offset-m1">
-          <input id="profile_image" name="profile_image" type="text" required />
-          <label for="profile_image">Photo URL</label>
+          <input id="profile_image" name="profile_image" type="text"
+            value="{{ profile_data.profile_info.profile_image or '' }}" required />
+          <label for=" profile_image">Photo URL</label>
         </div>
 
         <div class="input-field col s5">
-          <input id="tagline" name="tagline" type="text" required />
+          <input id="tagline" name="tagline" type="text" value="{{ profile_data.profile_info.tagline or '' }}"
+            required />
           <label for="tagline">tagline</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s5 offset-m1">
-          <input id="github_url" name="github_url" type="text" required />
+          <input id="github_url" name="github_url" type="text" value="{{ profile_data.profile_info.github_url or '' }}"
+            required />
           <label for="github_url">github url</label>
         </div>
         <div class="input-field col s5 ">
-          <input id="linkedin_url" name="linkedin_url" type="text" required />
+          <input id="linkedin_url" name="linkedin_url" type="text"
+            value="{{ profile_data.profile_info.linkedin_url or '' }}" required />
           <label for="linkedin_url">linkedin url</label>
         </div>
       </div>
       <div class="row">
         <div class="input-field col s10 offset-m1">
           <textarea id="profile_headline" name="profile_headline" class="materialize-textarea" required
-            maxlength="250"></textarea>
+            maxlength="250">{{ profile_data.profile_info.profile_headline or '' }}</textarea>
           <label for="profile_headline">Profile Headline</label>
           <span id="profile_headline-counter">0/250</span>
         </div>
@@ -124,4 +128,5 @@
   </form>
 </div>
 </div>
+
 {% endblock %}
