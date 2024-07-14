@@ -17,7 +17,7 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 # Security enhancements
 app.config["SESSION_COOKIE_HTTPONLY"] = True
-app.config["SESSION_COOKIE_SECURE"] = False  # Set to True if using HTTPS
+app.config["SESSION_COOKIE_SECURE"] = True  # Set to True if using HTTPS
 
 mongo = PyMongo(app)
 
