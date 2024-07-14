@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h4>Add Project</h4>
+            <form action="{{ url_for('add_project') }}" method="POST">
+                <div class="input-field">
+                    <input id="project_name" name="project_name" type="text" required>
+                    <label for="project_name">Project Name</label>
+                </div>
+                <div class="input-field">
+                    <textarea id="description" name="description" class="materialize-textarea" required></textarea>
+                    <label for="description">Description</label>
+                </div>
+                <div class="input-field">
+                    <input id="project_url" name="project_url" type="text" required>
+                    <label for="project_url">Project URL</label>
+                </div>
+                <div class="row center-align">
+                    <button type="submit" class="btn waves-effect waves-light">Submit</button>
+                    <a href="{{ url_for('profile', user_id=session['user_id']) }}"
+                        class="btn waves-effect waves-light red">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

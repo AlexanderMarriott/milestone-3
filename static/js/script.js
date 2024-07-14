@@ -1,7 +1,8 @@
-$(document).ready(function(){
+$(document).ready(function() {
     $('.sidenav').sidenav();
     $('.tooltipped').tooltip();
     $('.collapsible').collapsible();
+    $('.datepicker').datepicker();
     $('.modal').modal({
         dismissible: false,
         onOpenStart: function(modal, trigger) {
@@ -11,15 +12,18 @@ $(document).ready(function(){
             form.css('overflow', 'auto');
         }
     });
+    $('#cancelBtn').click(function(){
+        $('.modal').modal('close');
+    });
+    
     $(document).on('click', '.switch-modal', function(e) {
         e.preventDefault();
         var targetModal = $(this).attr('href');
         $('.modal').modal('close');
         setTimeout(function() {
             $(targetModal).modal('open');
-        }, 200); 
+        }, 200);
     });
-
 
     var $profileHeadlineInput = $('#profile_headline');
     var $profileHeadlineCounter = $('#profile_headline-counter');
@@ -30,28 +34,26 @@ $(document).ready(function(){
         $profileHeadlineCounter.text(currentLength + '/' + maxLength);
     });
 
-      // Initially disable the edit icon
-      $('.fas.fa-edit').closest('a').addClass('disabled');
+    // New code for setting experience to delete
+    var experienceToDelete = null;
 
-      // Function to check and update icons based on selection
-      $('.portfolio .selectable-item').click(function() {
-          // Toggle selected state
-          var isSelected = $(this).data('selected');
-          $(this).data('selected', !isSelected);
-          $(this).toggleClass('selected');
-  
-          // Check if any item is selected
-          var anySelected = $('.portfolio .selectable-item').is(function() {
-              return $(this).data('selected');
-          });
-  
-          // Update icons based on selection
-          if (anySelected) {
-              $('#actionIcon i').removeClass('fa-plus').addClass('fa-trash').css('color', 'red');
-              $('#editIcon').removeClass('disabled').addClass('highlighted');
-          } else {
-              $('#actionIcon i').removeClass('fa-trash').addClass('fa-plus').removeAttr('style');
-              $('#editIcon').addClass('disabled').removeClass('highlighted');
-          }
-      });
-  });
+    window.setExperienceToDelete = function(experienceId) {
+        experienceToDelete = experienceId;
+    };
+
+    $('#confirm-delete-btn').on('click', function() {
+        if (experienceToDelete) {
+            $('#delete-form-' + experienceToDelete).submit();
+        }
+    });
+
+    $('.modal-trigger.delete').on('click', function(e) {
+        e.preventDefault();
+        var experienceId = $(this).data('id');
+        setExperienceToDelete(experienceId);
+        $('#delete_experience_modal').modal('open');
+    });
+});
+
+
+

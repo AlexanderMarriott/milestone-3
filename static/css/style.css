@@ -44,8 +44,7 @@ body {
 }
 
 .profile-header {
-    background: #fbfdff;
-    /* Match the background color */
+    
     padding: 30px 40px 30px 40px;
     margin: 20px;
     text-align: center;
@@ -148,3 +147,41 @@ table {
   .selected {
     border: 2px solid blue; 
   }
+
+
+  .portfolio .section-content {
+    max-height: 200px; /* Adjust height as needed */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.portfolio .card.horizontal {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 10px; 
+    max-width: 90%;
+    margin-left: 20px;/* Adjust padding as needed */
+}
+
+.portfolio .card .card-stacked {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
+}
+
+.portfolio .card .card-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.portfolio .card .card-action {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
