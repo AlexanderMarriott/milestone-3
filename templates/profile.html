@@ -115,9 +115,9 @@
                   <form id="delete-form-{{ project._id }}"
                     action="{{ url_for('delete_project', project_id=project._id) }}" method="POST"
                     style="display:inline;">
-                    <a type="submit" class="tooltipped" data-position="top" data-tooltip="Delete Project">
+                    <button type="submit" class="btn-flat tooltipped" data-position="top" data-tooltip="Delete">
                       <i class="fas fa-trash"></i>
-                    </a>
+                    </button>
                   </form>
                   {% endif %}
                 </div>
