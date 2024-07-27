@@ -42,7 +42,8 @@
     <div class="employment_history z-depth-2 teal lighten-4 container col s12 m6 section padding-right">
       <h6>Experience
         {% if profile_data.is_owner %}
-        <a href="{{ url_for('add_experience') }}" class="modal-trigger"><i class="fas fa-plus right"></i></a>
+        <a href="{{ url_for('add_experience') }}" class="modal-trigger" data-position="top"
+          data-tooltip="Add experience">><i class="fas fa-plus right"></i></a>
         {% endif %}
       </h6>
       <p>Work and education history</p>
@@ -66,11 +67,12 @@
               <td>{{ exp.start_date }} - {{ exp.end_date }}</td>
               {% if profile_data.is_owner %}
               <td>
-                <a href="{{ url_for('edit_experience', experience_id=exp._id) }}" class="modal-trigger">
+                <a href="{{ url_for('edit_experience', experience_id=exp._id) }}" class="modal-trigger"
+                  data-position="top" data-tooltip="Edit">>
                   <i class="fas fa-edit"></i>
                 </a>
                 <a href="#delete_experience_modal" class="modal-trigger"
-                  onclick="setExperienceToDelete('{{ exp._id }}')">
+                  onclick="setExperienceToDelete('{{ exp._id }}')" data-position="top" data-tooltip="Delete">>
                   <i class="fas fa-trash"></i>
                 </a>
                 <form id="delete-form-{{ exp._id }}" action="{{ url_for('delete_experience', experience_id=exp._id) }}"
@@ -88,7 +90,8 @@
     <div class="portfolio z-depth-2 teal lighten-4 container col s12 m5 offset-m1 section  center-align">
       <h6>Portfolio
         {% if profile_data.is_owner %}
-        <a href="{{ url_for('add_project') }}"><i class="fas fa-plus right"></i></a>
+        <a href="{{ url_for('add_project') }}" data-position="top" data-tooltip="Add Project">><i
+            class="fas fa-plus right"></i></a>
         {% endif %}
       </h6>
       <p>Links to completed projects</p>
@@ -105,15 +108,16 @@
                 <div class="card-action">
                   <a href="{{ project.project_url }}" target="_blank">View Project</a>
                   {% if profile_data.is_owner %}
-                  <a href="{{ url_for('edit_project', project_id=project._id) }}" class="modal-trigger">
+                  <a href="{{ url_for('edit_project', project_id=project._id) }}" class="modal-trigger"
+                    data-position="top" data-tooltip="Edit">
                     <i class="fas fa-edit"></i>
                   </a>
                   <form id="delete-form-{{ project._id }}"
                     action="{{ url_for('delete_project', project_id=project._id) }}" method="POST"
                     style="display:inline;">
-                    <button type="submit" class="btn-flat">
+                    <a type="submit" class="btn-flat" data-position="top" data-tooltip="Delete Project">>
                       <i class="fas fa-trash"></i>
-                    </button>
+                    </a>
                   </form>
                   {% endif %}
                 </div>
