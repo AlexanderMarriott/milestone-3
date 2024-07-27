@@ -54,23 +54,7 @@ $(document).ready(function() {
         $('#delete_experience_modal').modal('open');
     });
 
-    $('a').on('click', function(event) {
-        var url = $(this).attr('href');
-
-        fetch(url, { method: 'HEAD' })
-            .then(response => {
-                if (!response.ok) {
-                    event.preventDefault();
-                    alert('The link is broken. Redirecting to the profile page.');
-                    window.location.href = '/profile';
-                }
-            })
-            .catch(error => {
-                event.preventDefault();
-                alert('The link is broken. Redirecting to the profile page.');
-                window.location.href = '/profile';
-            });
-    });
+    
 });
 
 
